@@ -173,7 +173,10 @@ public partial class MainPage : ContentPage
                 // TODO: Salvo que sea una letra escrita por el usuario
                 if (mostrar == false && char.IsLetter(c))
                 {
-                    c = ' ';
+                    if (string.IsNullOrEmpty(vLetra.ClassId))
+                    {
+                        c = ' ';
+                    }
                 }
                 n++;
                 vLetra.Text = c.ToString();
@@ -444,6 +447,10 @@ public partial class MainPage : ContentPage
         if ("ÓÖÒ".IndexOf(s) > -1) s = "O";
         if ("ÚÜÙ".IndexOf(s) > -1) s = "U";
         vLetra.Text = s;
+
+        // Indicar que ya está asignada esta letra,
+        // con idea de que al limpiar se limpien las que no tengan contenido escrito por el usuario
+        vLetra.ClassId = s;
         
         yaEstoy = false;
     }
