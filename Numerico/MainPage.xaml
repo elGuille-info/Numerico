@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Numerico.MainPage"
+             Title="Pasatiempo Numérico para .NET MAUI"
+             Appearing="ContentPage_Appearing">
+    <ContentPage.Resources>
+        <Style x:Key="ImgExpander" TargetType="{x:Type Image}">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="WidthRequest" Value="20"/>
+            <Setter Property="HeightRequest" Value="20"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextTransform" Value="Uppercase"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="8,0" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView>
+        <StackLayout Margin="8">
+            <StackLayout Margin="0,0,0,4">
+                <Label Text="Pasatiempo Numérico para .NET MAUI" 
+                       FontSize="Subtitle" FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <Label x:Name="LabelInfo" Margin="0,8" IsVisible="False"
+                       Text="Cargando el pasatiempo numérico..." BackgroundColor="AliceBlue" />
+                <!-- Simular Expander para seleccionar el juego numérico -->
+                <StackLayout Orientation="Horizontal" Padding="4" Margin="0,8,0,4"
+                             BackgroundColor="{DynamicResource Primary}">
+                    <Label Text="Seleccionar juego numérico"
+                           TextColor="White" FontAttributes="Bold"
+                           HorizontalOptions="FillAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LabelExpander_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Image x:Name="ImgExpander" Style="{StaticResource ImgExpander}"
+                           Source="collapse_white.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LabelExpander_Tapped" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+                <StackLayout x:Name="grbExpander" Margin="4,8,4,4">
+                    <Label Text="Selecciona un juego y pulsa en el botón Generar numérico"/>
+                    <StackLayout Orientation="Horizontal" Margin="0,8"
+                                 HorizontalOptions="Fill" 
+                                 VerticalOptions="Center"
+                                 Spacing="12">
+                        <Label Text="Número de juego: " VerticalOptions="Center"/>
+                        <Entry x:Name="txtNumJuego" Text="1" />
+                        <Button x:Name="BtnGenerar" Text="{OnIdiom Phone='Generar numérico', Default='Generar pasatiempo numérico'}"
+                                Margin="12,8"
+                                Clicked="BtnGenerar_Clicked"
+                                HorizontalOptions="Center" />
+                    </StackLayout>
+                    <Label x:Name="LabelNumero" Text="" Margin="8,0"/>
+                </StackLayout>
+                <!-- Simular Expander para el juego -->
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" Padding="4" Margin="0,8,0,4"
+                                 BackgroundColor="{DynamicResource Primary}">
+                        <Label x:Name="LabelTitulo"
+                               TextColor="White" FontAttributes="Bold"
+                               HorizontalOptions="FillAndExpand"
+                               Text="Pasatiempo numérico">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LabelExpander2_Tapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Image x:Name="ImgExpander2" Style="{StaticResource ImgExpander}"
+                               Source="expand_white.png">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LabelExpander2_Tapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout x:Name="grbNumerico" IsVisible="False">
+                    <ScrollView Orientation="Horizontal" Margin="0,4,0,8">
+                        <StackLayout x:Name="grbBotones" Orientation="Horizontal" 
+                                     Margin="4,8,4,4" Spacing="12"
+                                     PropertyChanged="StackLayout_PropertyChanged">
+                            <Button x:Name="BtnSolucion" Text="Mostrar solución" 
+                                    Clicked="BtnSolucion_Clicked" />
+                            <Button x:Name="BtnComprobar" Text="Comprobar" 
+                                    Clicked="BtnComprobar_Clicked"/>
+                        </StackLayout>
+                    </ScrollView>
+                    <Frame Padding="4">
+                        <StackLayout>
+                            <!-- Aquí se muestra el juego a resolver -->
+                            <StackLayout x:Name="grbContenido" />
+                            <Label Margin="0,8" Padding="4" Text="Autor" 
+                                   FontSize="Small" FontAttributes="Bold" 
+                                   HorizontalTextAlignment="Start"/>
+                            <StackLayout x:Name="grbAutor" />
+                            <Label Margin="0,8" Padding="4" Text="Título" 
+                                   FontSize="Small" FontAttributes="Bold" 
+                                   HorizontalTextAlignment="Start"/>
+                            <StackLayout x:Name="grbTitulo" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

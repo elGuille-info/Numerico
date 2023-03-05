@@ -1,0 +1,11 @@
+﻿# Formato: cada campo en una línea.
+# Las líneas que empiezan con almoadilla (#) no se tienen en cuenta.
+# Los datos que se tendrán en cuenta son (en este orden): Autor, Título, Contenido y Orden-Letras
+# Autor
+Guillermo Som (Guille)
+# Título
+Prueba de pasatiempo numerico
+# Contenido
+Este es un texto de prueba para generar el pasatiempo numerico, de forma que se cambien las letras por numeros. A numeros iguales, letras iguales, no se diferencian las vocales con tilde de las normales. La Ñ es diferente de la N.
+# Orden-Letras
+ABCDEFGHIJKLMNÑOPQRSTUVWXYZ
