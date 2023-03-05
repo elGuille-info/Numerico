@@ -43,9 +43,6 @@ public partial class MainPage : ContentPage
 
         LabelInfo.IsVisible = true;
 
-        //var pag = new Numerico(numJuego);
-        //await Navigation.PushAsync(pag);
-
         NumeroJuego = numJuego;
         MostrarJuegoNumerico();
 
@@ -64,11 +61,11 @@ public partial class MainPage : ContentPage
     }
 
     /// <summary>
-    /// Mostrar la imagen que corresponde. (01/Nov/21 22.35)
+    /// Mostrar la imagen que corresponde del expander.
     /// </summary>
     /// <param name="img">El control de imagen a asignar.</param>
-    /// <param name="expanded">si se debe mostrar expand o collapse.</param>
-    private void MostrarImagenExpander(Image img, bool expanded)
+    /// <param name="expanded">Si se debe mostrar expanded (false) o collapse (true).</param>
+    private static void MostrarImagenExpander(Image img, bool expanded)
     {
         string imgSource;
         if (expanded)
@@ -79,6 +76,7 @@ public partial class MainPage : ContentPage
         {
             imgSource = "expand_white.png";
         }
+        // En .NET MAUI solo se indica el nombre del fichero que estará en Resources/Images
         img.Source = imgSource;
     }
 

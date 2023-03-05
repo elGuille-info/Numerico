@@ -28,6 +28,17 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<Title>Pasatiempo Numérico</Title>
+		<Authors>Guillermo Som</Authors>
+		<Company>ElGuille</Company>
+		<Description>Pasatiempo numérico para .NET MAUI, revisión del 05-mar-2023</Description>
+		<Copyright>(c) Guillermo Som (Guille), 2023</Copyright>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>pasatiempos</PackageTags>
+		<RepositoryUrl>https://github.com/elGuille-info/Numerico</RepositoryUrl>
+		<PackageReleaseNotes>Revisión del 05-mar-2023</PackageReleaseNotes>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<NeutralLanguage>es</NeutralLanguage>
 	</PropertyGroup>
 
 	<ItemGroup>
