@@ -154,14 +154,16 @@ public static class NumericoHelpers
         int totalColumnas = 20;
         if (DeviceInfo.Idiom == DeviceIdiom.Phone)
         {
-            totalColumnas = 9;
-            anchoNum = 40;
+            totalColumnas = 10; // 9;
+            anchoNum = 36; // 40;
+            anchoEntry = anchoNum;
         }
         else if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
         {
             totalColumnas = 22; // 16;
             anchoNum = 35; // 40;
-            anchoEntry = 35;
+            //anchoEntry = 35;
+            anchoEntry = anchoNum;
         }
         else if (DeviceInfo.Idiom == DeviceIdiom.Desktop)
         {
