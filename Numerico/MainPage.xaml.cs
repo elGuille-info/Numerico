@@ -135,20 +135,23 @@ public partial class MainPage : ContentPage
         int resueltos = await ComprobarJuego();
         if (resueltos == 3)
         {
-            LabelInfo.Text = "El juego está resuelto.";
+            LabelInfo.Text = "¡Enhorabuena! El juego está resuelto.";
         }
         else
         {
             LabelInfo.Text = "El juego NO está resuelto.";
             if (resueltos > 0)
             {
-                LabelInfo.Text += $" Has resuelto {resueltos} de 3.";
+                LabelInfo.Text += $" Has resuelto {resueltos} de las 3 partes.";
             }
         }
-        //LabelInfo.IsVisible = false;
         grbBotones.IsEnabled = true;
     }
 
+    /// <summary>
+    /// Mostrar u ocultar la solución.
+    /// </summary>
+    /// <param name="mostrar">True si se debe mostrar la solución, false si solo se deja lo escrito por el usuario</param>
     private void MostrarSolucion(bool mostrar)
     {
         AsignarSolucion(grbAutor, ElJuego.Autor, mostrar);
@@ -156,6 +159,12 @@ public partial class MainPage : ContentPage
         AsignarSolucion(grbContenido, ElJuego.Contenido, mostrar);
     }
 
+    /// <summary>
+    /// Asignar la solución de la sección indicada.
+    /// </summary>
+    /// <param name="grb">La sección a comprobar</param>
+    /// <param name="texto">El texto correcto de la sección</param>
+    /// <param name="mostrar">Si se debe mostrar u ocultar</param>
     private static void AsignarSolucion(StackLayout grb, string texto, bool mostrar)
     {
         int i = 0;
@@ -185,6 +194,10 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// Comprobar si se ha resuelto el juego
+    /// </summary>
+    /// <returns>El número de secciones resueltas</returns>
     private async Task<int> ComprobarJuego()
     {
         // Comprobar si se ha resuelto el pasatiempo numérico
@@ -208,6 +221,12 @@ public partial class MainPage : ContentPage
         return resueltos;
     }
 
+    /// <summary>
+    /// Comprobar si el contenido de la sección indicada está resuelto
+    /// </summary>
+    /// <param name="grb">Sección a comprobar</param>
+    /// <param name="texto">El texto correcto de esa sección</param>
+    /// <returns>True si lo escrito coincide con el texto indicado</returns>
     private static bool ComprobarContenido(StackLayout grb, string texto)
     {
         StringBuilder sb = new StringBuilder();
@@ -241,6 +260,10 @@ public partial class MainPage : ContentPage
         return sb.ToString() == texto.ToUpper();
     }
 
+    /// <summary>
+    /// Mostrar el juego creando los controles con las letras y los números
+    /// </summary>
+    /// <param name="conSolucion">True si se debe mostrar la solución</param>
     private async void MostrarJuego(bool conSolucion)
     {
         grbBotones.IsEnabled = false;
