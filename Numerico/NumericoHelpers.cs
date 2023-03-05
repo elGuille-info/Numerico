@@ -154,6 +154,8 @@ public static class NumericoHelpers
         int totalColumnas = 20;
         if (DeviceInfo.Idiom == DeviceIdiom.Phone)
         {
+            // En Phone Android (Pixel 4a) va bien
+            // En iPhone 7 plus, se cierra al cargar el programa
             totalColumnas = 10; // 9;
             anchoNum = 36; // 40;
             anchoEntry = anchoNum;
