@@ -169,7 +169,8 @@ public partial class MainPage : ContentPage
             foreach (Entry vLetra in grbFilaLetra.Cast<Entry>())
             {
                 var c = texto[n];
-                // Si no es una de las letras a cambiar
+                // Si es una de las letras a cambiar, y no es mostrar, asignar un espacio
+                // TODO: Salvo que sea una letra escrita por el usuario
                 if (mostrar == false && char.IsLetter(c))
                 {
                     c = ' ';
@@ -272,6 +273,12 @@ public partial class MainPage : ContentPage
         SolucionMostrada = conSolucion;
     }
 
+    /// <summary>
+    /// Asignar el contenido del juego a los StackLayout de la página.
+    /// </summary>
+    /// <param name="grb">Grupo al que añadir los controles</param>
+    /// <param name="texto">El texto a resolver</param>
+    /// <param name="conSolucion">Si se muestra la solución</param>
     private void AsignarContenido(StackLayout grb, string texto, bool conSolucion)
     {
         string ordenLetras = ElJuego.OrdenLetras;
@@ -294,6 +301,7 @@ public partial class MainPage : ContentPage
         else if (DeviceInfo.Idiom == DeviceIdiom.Desktop)
         {
             totalColumnas = 24;
+            anchoNum = 44;
         }
 
         _ = grb.Dispatcher.Dispatch(() =>
@@ -310,6 +318,7 @@ public partial class MainPage : ContentPage
             {
                 Orientation = StackOrientation.Horizontal
             };
+            char elChar = ' ';
             // el formato es nn o espacio char
             while (true)
             {
@@ -325,12 +334,15 @@ public partial class MainPage : ContentPage
                 {
                     elNum = s.Substring(1, 1);
                     laLetra = elNum;
+                    elChar = elNum[0];
                 }
                 else
                 {
                     int i = Convert.ToInt32(s);
+                    elChar = ordenLetras[i];
                     if (conSolucion)
                     {
+                        //elChar = ordenLetras[i];
                         laLetra = ordenLetras[i].ToString();
                     }
                     else
@@ -339,6 +351,7 @@ public partial class MainPage : ContentPage
                     }
                     elNum = (i + 1).ToString();
                 }
+                // Para la fila de los números usar etiquetas ya que solo es para mostrar el número
                 Label celdaNum = new Label
                 //Entry celdaNum = new Entry
                 {
@@ -347,9 +360,9 @@ public partial class MainPage : ContentPage
                     HeightRequest = altoNum,
                     Text = elNum,
                     IsVisible = true,
-                    //IsReadOnly = true,
                     BackgroundColor = Colors.WhiteSmoke
                 };
+                // Para la fila del texto, usar Entry para poder escribir
                 Entry celdaLetra = new Entry
                 {
                     FontFamily = "Consolas",
@@ -357,21 +370,30 @@ public partial class MainPage : ContentPage
                     WidthRequest = anchoEntry,
                     HeightRequest = altoLetra,
                     Text = laLetra,
-                    IsVisible = true
+                    IsVisible = true,
+                    ClassId = ""
                 };
-                
-                if (laLetra == " ")
-                {
-                    celdaLetra.BackgroundColor = Colors.Gray;
-                    celdaLetra.IsReadOnly = true;
-                }
-                else
+
+                // Solo añadir los eventos en las letras
+                // Los espacios mostrarlos oscuros y de solo lectura
+                //if (laLetra == " ")
+                if (char.IsLetter(elChar))
                 {
                     celdaLetra.Completed += Entry_Completed;
                     celdaLetra.Unfocused += Entry_Unfocused;
                 }
-                //celdaLetra.Completed += Entry_Completed;
-                //celdaLetra.Unfocused += Entry_Unfocused;
+                else
+                {
+                    celdaLetra.IsReadOnly = true;
+                    if (laLetra == " ")
+                    {
+                        celdaLetra.BackgroundColor = Colors.Gray;
+                    }
+                    else
+                    {
+                        celdaLetra.BackgroundColor = Colors.WhiteSmoke;
+                    }
+                }
 
                 grbFilaNum.Children.Add(celdaNum);
                 grbFilaLetra.Children.Add(celdaLetra);
@@ -385,7 +407,6 @@ public partial class MainPage : ContentPage
                     grb.Children.Add(grbFilaLetra);
                     grbFilaNum = new StackLayout
                     {
-                        //BackgroundColor = Colors.WhiteSmoke,
                         Orientation = StackOrientation.Horizontal
                     };
                     grbFilaLetra = new StackLayout

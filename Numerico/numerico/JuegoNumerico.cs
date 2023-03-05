@@ -14,9 +14,6 @@ namespace Pasatiempo.Numerico;
 
 public class JuegoNumerico
 {
-    public static int NumJuegoMin = 1;
-    public static int NumJuegoMax = 1;
-
     static JuegoNumerico()
     {
         NumJuegoMin = JuegosNumericos.Min();
@@ -26,7 +23,11 @@ public class JuegoNumerico
     /// <summary>
     /// Los juegos numéricos ya definidos.
     /// </summary>
-    public static List<int> JuegosNumericos = new List<int>() { 1, 2 };
+    public static List<int> JuegosNumericos { get; set; } = new List<int>() { 1, 2 };
+
+    public static int NumJuegoMin { get; set; } = 1;
+    public static int NumJuegoMax { get; set; } = 1;
+    
 
     /// <summary>
     /// Crear el pasatiempo numérico, sustituyendo las letras de contenido por números según el ordenLentras.
@@ -70,7 +71,6 @@ public class JuegoNumerico
         {
             int i = ordenLetras.IndexOf(c, StringComparison.OrdinalIgnoreCase);
             if (i == -1)
-            //if (i < 1)
             {
                 sb.Append(' ');
                 sb.Append(c);
