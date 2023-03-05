@@ -84,27 +84,6 @@ public partial class MainPage : ContentPage
 
     // El código de Numerico.xaml.cs
 
-    private async void MostrarJuegoNumerico()
-    {
-        LabelExpander_Tapped(null, null);
-        LabelExpander2_Tapped(null, null);
-
-        if (ElJuego == null)
-        {
-            LabelInfo.Text = "Leyendo los datos del juego...";
-            LabelInfo.IsVisible = true;
-            grbNumerico.IsVisible = false;
-            grbBotones.IsEnabled = false;
-
-            ElJuego = await JuegoNumerico.LeerJuego(NumeroJuego);
-
-            LabelInfo.IsVisible = false;
-        }
-
-        // Asignar los datos
-        MostrarJuego(conSolucion: false);
-    }
-
     private void BtnSolucion_Clicked(object sender, EventArgs e)
     {
         // Mostrar la solución sin tener que crear los controles,   (05/mar/23 15.40)
@@ -146,6 +125,30 @@ public partial class MainPage : ContentPage
             }
         }
         grbBotones.IsEnabled = true;
+    }
+
+    /// <summary>
+    /// Leer y mostrar el juego indicado en NumeroJuego.
+    /// </summary>
+    private async void MostrarJuegoNumerico()
+    {
+        LabelExpander_Tapped(null, null);
+        LabelExpander2_Tapped(null, null);
+
+        if (ElJuego == null)
+        {
+            LabelInfo.Text = "Leyendo los datos del juego...";
+            LabelInfo.IsVisible = true;
+            grbNumerico.IsVisible = false;
+            grbBotones.IsEnabled = false;
+
+            ElJuego = await JuegoNumerico.LeerJuego(NumeroJuego);
+
+            LabelInfo.IsVisible = false;
+        }
+
+        // Asignar los datos sin mostrar la solución
+        MostrarJuego(conSolucion: false);
     }
 
     /// <summary>
