@@ -112,7 +112,7 @@ public partial class MainPage : ContentPage
 
         SolucionMostrada = !SolucionMostrada;
         //MostrarJuego(conSolucion: SolucionMostrada);
-        MostrarSolucion();
+        MostrarSolucion(SolucionMostrada);
 
         if (SolucionMostrada)
         {
@@ -149,14 +149,14 @@ public partial class MainPage : ContentPage
         grbBotones.IsEnabled = true;
     }
 
-    private void MostrarSolucion()
+    private void MostrarSolucion(bool mostrar)
     {
-        AsignarContenido(grbAutor, ElJuego.Autor);
-        AsignarContenido(grbTitulo, ElJuego.Titulo);
-        AsignarContenido(grbContenido, ElJuego.Contenido);
+        AsignarSolucion(grbAutor, ElJuego.Autor, mostrar);
+        AsignarSolucion(grbTitulo, ElJuego.Titulo, mostrar);
+        AsignarSolucion(grbContenido, ElJuego.Contenido, mostrar);
     }
 
-    private static void AsignarContenido(StackLayout grb, string texto)
+    private static void AsignarSolucion(StackLayout grb, string texto, bool mostrar)
     {
         int i = 0;
         int n = 0;
@@ -168,9 +168,14 @@ public partial class MainPage : ContentPage
             //foreach (Entry vLetra in grbFilaLetra)
             foreach (Entry vLetra in grbFilaLetra.Cast<Entry>())
             {
-                string s = texto[n].ToString();
+                var c = texto[n];
+                // Si no es una de las letras a cambiar
+                if (mostrar == false && char.IsLetter(c))
+                {
+                    c = ' ';
+                }
                 n++;
-                vLetra.Text = s;
+                vLetra.Text = c.ToString();
             }
             i += 2;
         }
