@@ -55,6 +55,43 @@ public static class NumericoHelpers
     }
 
     /// <summary>
+    /// Asignar la letra indicada.
+    /// </summary>
+    /// <param name="grb">La sección a comprobar</param>
+    /// <param name="texto">El texto correcto de la sección</param>
+    /// <param name="letra">La letra a comprobar</param>
+    /// <param name="todas">True si se asignan todas, false si se asigna la primera no asignada</param>
+    public static void AsignarLetra(StackLayout grb, string texto, string letra, bool todas)
+    {
+        int i = 0;
+        int n = 0;
+
+        while (i < grb.Children.Count)
+        {
+            // La fila de letras contiene Entry
+            StackLayout grbFilaLetra = (StackLayout)grb.Children[i + 1];
+            //foreach (Entry vLetra in grbFilaLetra)
+            foreach (Entry vLetra in grbFilaLetra.Cast<Entry>())
+            {
+                var s = texto[n].ToString().ToUpper();
+                if (letra.ToUpper() == s) 
+                {
+                    // solo las no asignadas
+                    if (string.IsNullOrEmpty(vLetra.ClassId))
+                    {
+                        vLetra.ClassId = letra;
+                        vLetra.Text = letra;
+                        if (todas == false)
+                            return;
+                    }
+                }
+                n++;
+            }
+            i += 2;
+        }
+    }
+
+    /// <summary>
     /// Comprobar si el contenido de la sección indicada está resuelto
     /// </summary>
     /// <param name="grb">Sección a comprobar</param>

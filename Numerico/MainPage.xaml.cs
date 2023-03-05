@@ -54,8 +54,8 @@ public partial class MainPage : ContentPage
     }
     private void LabelExpander2_Tapped(object sender, TappedEventArgs e)
     {
-        grbNumerico.IsVisible = !grbNumerico.IsVisible;
-        MostrarImagenExpander(ImgExpander2, grbNumerico.IsVisible);
+        grbExpanderNumerico.IsVisible = !grbExpanderNumerico.IsVisible;
+        MostrarImagenExpander(ImgExpander2, grbExpanderNumerico.IsVisible);
     }
 
     /// <summary>
@@ -128,8 +128,8 @@ public partial class MainPage : ContentPage
     /// </summary>
     private async void MostrarJuegoNumerico()
     {
-        LabelExpander_Tapped(null, null);
-        LabelExpander2_Tapped(null, null);
+        //LabelExpander_Tapped(null, null);
+        //LabelExpander2_Tapped(null, null);
 
         if (NumericoHelpers.ElJuego == null)
         {
@@ -192,7 +192,21 @@ public partial class MainPage : ContentPage
         {
             BtnComprobar.IsEnabled = grbBotones.IsEnabled;
             BtnSolucion.IsEnabled = grbBotones.IsEnabled;
+            BtnAsignarLetra.IsEnabled = grbBotones.IsEnabled;
+            LabelLetraHint.IsEnabled = grbBotones.IsEnabled;
+            txtLetraHint.IsEnabled = grbBotones.IsEnabled;
+            LabelCheckLetraHint.IsEnabled = grbBotones.IsEnabled;
+            chkLetraHint.IsEnabled = grbBotones.IsEnabled;
         }
+    }
+
+    private void BtnAsignarLetra_Clicked(object sender, EventArgs e)
+    {
+        // Asignar la letra indicada a todas las coincidencias
+        // si chkLetraHint está seleccionado, habilitar todas, si no la primera no asignada
+        NumericoHelpers.AsignarLetra(grbAutor, NumericoHelpers.ElJuego.Autor, txtLetraHint.Text, chkLetraHint.IsChecked);
+        NumericoHelpers.AsignarLetra(grbTitulo, NumericoHelpers.ElJuego.Titulo, txtLetraHint.Text, chkLetraHint.IsChecked);
+        NumericoHelpers.AsignarLetra(grbContenido, NumericoHelpers.ElJuego.Contenido, txtLetraHint.Text, chkLetraHint.IsChecked);
     }
 }
 
