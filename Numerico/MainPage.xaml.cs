@@ -107,8 +107,12 @@ public partial class MainPage : ContentPage
 
     private void BtnSolucion_Clicked(object sender, EventArgs e)
     {
+        // Mostrar la solución sin tener que crear los controles,   (05/mar/23 15.40)
+        // al estilo de como se comprueba si lo ha resuelto.
+
         SolucionMostrada = !SolucionMostrada;
-        MostrarJuego(conSolucion: SolucionMostrada);
+        //MostrarJuego(conSolucion: SolucionMostrada);
+        MostrarSolucion();
 
         if (SolucionMostrada)
         {
@@ -143,6 +147,33 @@ public partial class MainPage : ContentPage
         }
         //LabelInfo.IsVisible = false;
         grbBotones.IsEnabled = true;
+    }
+
+    private void MostrarSolucion()
+    {
+        AsignarContenido(grbAutor, ElJuego.Autor);
+        AsignarContenido(grbTitulo, ElJuego.Titulo);
+        AsignarContenido(grbContenido, ElJuego.Contenido);
+    }
+
+    private static void AsignarContenido(StackLayout grb, string texto)
+    {
+        int i = 0;
+        int n = 0;
+
+        while (i < grb.Children.Count)
+        {
+            // La fila de letras contiene Entry
+            StackLayout grbFilaLetra = (StackLayout)grb.Children[i + 1];
+            //foreach (Entry vLetra in grbFilaLetra)
+            foreach (Entry vLetra in grbFilaLetra.Cast<Entry>())
+            {
+                string s = texto[n].ToString();
+                n++;
+                vLetra.Text = s;
+            }
+            i += 2;
+        }
     }
 
     private async Task<int> ComprobarJuego()
