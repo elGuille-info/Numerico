@@ -94,6 +94,50 @@ public static class NumericoHelpers
     }
 
     /// <summary>
+    /// Mostrar u ocultar la solución.
+    /// </summary>
+    /// <param name="grbAutor">La sección del autor</param>
+    /// <param name="grbTitulo">La sección del título</param>
+    /// <param name="grbContenido">La sección del contenido</param>
+    /// <param name="mostrar">True si se debe mostrar la solución, false si solo se deja lo escrito por el usuario</param>
+    public static void MostrarSolucion(StackLayout grbAutor, StackLayout grbTitulo, StackLayout grbContenido, bool mostrar)
+    {
+        AsignarSolucion(grbAutor, ElJuego.Autor, mostrar);
+        AsignarSolucion(grbTitulo, ElJuego.Titulo, mostrar);
+        AsignarSolucion(grbContenido, ElJuego.Contenido, mostrar);
+    }
+
+    /// <summary>
+    /// Comprobar si se ha resuelto el juego
+    /// </summary>
+    /// <param name="grbAutor">La sección del autor</param>
+    /// <param name="grbTitulo">La sección del título</param>
+    /// <param name="grbContenido">La sección del contenido</param>
+    /// <returns>El número de secciones resueltas</returns>
+    public static async Task<int> ComprobarJuego(StackLayout grbAutor, StackLayout grbTitulo, StackLayout grbContenido)
+    {
+        // Comprobar si se ha resuelto el pasatiempo numérico
+        // En grbContenido estará el contenido del texto
+        // En grbAutor estará el nombre del autor
+        // En grbTitulo estará el título
+        // En cada grupo (StackLayout) habrá filas de dos StackLayout con los números y las letras
+        // Si en la fila de números hay un signo, es que no se debe tener en cuenta
+        // En la fila de las letras solo se debe comprobar si en la de números es un número
+        // Cada número corresponde con el orden en ElJuego.OrdenLetras
+
+        int resueltos = 0;
+
+        await Task.Run(() =>
+        {
+            if (ComprobarContenido(grbAutor, ElJuego.Autor)) resueltos++;
+            if (ComprobarContenido(grbTitulo, ElJuego.Titulo)) resueltos++;
+            if (ComprobarContenido(grbContenido, ElJuego.Contenido)) resueltos++;
+        });
+
+        return resueltos;
+    }
+
+    /// <summary>
     /// Asignar el contenido del juego a los StackLayout de la página.
     /// </summary>
     /// <param name="grb">Grupo al que añadir los controles</param>

@@ -87,7 +87,7 @@ public partial class MainPage : ContentPage
 
         NumericoHelpers.SolucionMostrada = !NumericoHelpers.SolucionMostrada;
         //MostrarJuego(conSolucion: SolucionMostrada);
-        MostrarSolucion(NumericoHelpers.SolucionMostrada);
+        NumericoHelpers.MostrarSolucion(grbAutor, grbTitulo, grbContenido, NumericoHelpers.SolucionMostrada);
 
         if (NumericoHelpers.SolucionMostrada)
         {
@@ -107,7 +107,7 @@ public partial class MainPage : ContentPage
         grbBotones.IsEnabled = false;
 
         // Comprobar
-        int resueltos = await ComprobarJuego();
+        int resueltos = await NumericoHelpers.ComprobarJuego(grbAutor, grbTitulo, grbContenido);
         if (resueltos == 3)
         {
             LabelInfo.Text = "¡Enhorabuena! El juego está resuelto.";
@@ -145,44 +145,6 @@ public partial class MainPage : ContentPage
 
         // Asignar los datos sin mostrar la solución
         MostrarJuego(conSolucion: false);
-    }
-
-    /// <summary>
-    /// Mostrar u ocultar la solución.
-    /// </summary>
-    /// <param name="mostrar">True si se debe mostrar la solución, false si solo se deja lo escrito por el usuario</param>
-    private void MostrarSolucion(bool mostrar)
-    {
-        NumericoHelpers.AsignarSolucion(grbAutor, NumericoHelpers.ElJuego.Autor, mostrar);
-        NumericoHelpers.AsignarSolucion(grbTitulo, NumericoHelpers.ElJuego.Titulo, mostrar);
-        NumericoHelpers.AsignarSolucion(grbContenido, NumericoHelpers.ElJuego.Contenido, mostrar);
-    }
-
-    /// <summary>
-    /// Comprobar si se ha resuelto el juego
-    /// </summary>
-    /// <returns>El número de secciones resueltas</returns>
-    private async Task<int> ComprobarJuego()
-    {
-        // Comprobar si se ha resuelto el pasatiempo numérico
-        // En grbContenido estará el contenido del texto
-        // En grbAutor estará el nombre del autor
-        // En grbTitulo estará el título
-        // En cada grupo (StackLayout) habrá filas de dos StackLayout con los números y las letras
-        // Si en la fila de números hay un signo, es que no se debe tener en cuenta
-        // En la fila de las letras solo se debe comprobar si en la de números es un número
-        // Cada número corresponde con el orden en ElJuego.OrdenLetras
-
-        int resueltos = 0;
-
-        await Task.Run(() =>
-        {
-            if (NumericoHelpers.ComprobarContenido(grbAutor, NumericoHelpers.ElJuego.Autor)) resueltos++;
-            if (NumericoHelpers.ComprobarContenido(grbTitulo, NumericoHelpers.ElJuego.Titulo)) resueltos++;
-            if (NumericoHelpers.ComprobarContenido(grbContenido, NumericoHelpers.ElJuego.Contenido)) resueltos++;
-        });
-
-        return resueltos;
     }
 
     /// <summary>
