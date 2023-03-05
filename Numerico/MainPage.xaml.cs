@@ -3,6 +3,8 @@
 //
 // (c) Guillermo Som (Guille), 2023
 //-------------------------------------------------------------------------- 
+using System.Text;
+
 using Pasatiempo.Numerico;
 
 namespace Numerico;
@@ -14,8 +16,8 @@ public partial class MainPage : ContentPage
     private bool SolucionMostrada = false;
 
     public MainPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
     }
 
     private void ContentPage_Appearing(object sender, EventArgs e)
@@ -27,7 +29,7 @@ public partial class MainPage : ContentPage
     {
         // por ahora solo hay un juego disponible
         int numJuego = 1;
-        if (Int32.TryParse(txtNumJuego.Text, out numJuego) == false) 
+        if (Int32.TryParse(txtNumJuego.Text, out numJuego) == false)
         {
             LabelNumero.Text = "No es un número válido, se utiliza el juego número 1.";
         }
@@ -118,9 +120,76 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private void BtnComprobar_Clicked(object sender, EventArgs e)
+    private async void BtnComprobar_Clicked(object sender, EventArgs e)
     {
+        // Comprobar si se ha resuelto el pasatiempo numérico
+        LabelInfo.Text = "Comprobando si está resuelto el pasatiempo numérico...";
+        LabelInfo.IsVisible = true;
+        grbBotones.IsEnabled = false;
 
+        // Comprobar
+        if (await ComprobarJuego())
+        {
+            LabelInfo.Text = "El juego está resuelto.";
+        }
+        else
+        {
+            LabelInfo.Text = "El juego NO está resuelto.";
+        }
+        //LabelInfo.IsVisible = false;
+        grbBotones.IsEnabled = true;
+    }
+
+    private async Task<bool> ComprobarJuego()
+    {
+        // Comprobar si se ha resuelto el pasatiempo numérico
+        // En grbContenido estará el contenido del texto
+        // En grbAutor estará el nombre del autor
+        // En grbTitulo estará el título
+        // En cada grupo (StackLayout) habrá filas de dos StackLayout con los números y las letras
+        // Si en la fila de números hay un signo, es que no se debe tener en cuenta
+        // En la fila de las letras solo se debe comprobar si en la de números es un número
+        // Cada número corresponde con el orden en ElJuego.OrdenLetras
+
+        int resueltos = 0;
+
+        await Task.Run(() =>
+        {
+            if (ComprobarContenido(grbAutor, ElJuego.Autor)) resueltos++;
+            if (ComprobarContenido(grbTitulo, ElJuego.Titulo)) resueltos++;
+            if (ComprobarContenido(grbContenido, ElJuego.Contenido)) resueltos++;
+        });
+
+        return resueltos == 3;
+    }
+
+    private bool ComprobarContenido(StackLayout grb, string texto)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        int i = 0;
+
+        while (i < grb.Children.Count)
+        {
+            // La fila de números contiene Label
+            //grbFilaNum = (StackLayout)grb.Children[i];
+            // La fila de letras contiene Entry
+            StackLayout grbFilaLetra = (StackLayout)grb.Children[i + 1];
+            foreach (Entry vLetra in grbFilaLetra)
+            {
+                string s = vLetra.Text.Trim();
+                // Cambiar las vocales con tilde y diéresis por vocales normales
+                if ("ÁÄÀ".IndexOf(s) > -1) s = "A";
+                if ("ÉËÈ".IndexOf(s) > -1) s = "E";
+                if ("ÍÏÌ".IndexOf(s) > -1) s = "I";
+                if ("ÓÖÒ".IndexOf(s) > -1) s = "O";
+                if ("ÚÜÙ".IndexOf(s) > -1) s = "U";
+                sb.Append(s);
+            }
+            i += 2;
+        }
+
+        return sb.ToString() == texto.ToUpper();
     }
 
     private async void MostrarJuego(bool conSolucion)
@@ -245,10 +314,16 @@ public partial class MainPage : ContentPage
                     Text = laLetra,
                     IsVisible = true
                 };
+                
                 if (laLetra == " ")
                 {
                     celdaLetra.BackgroundColor = Colors.Gray;
                     celdaLetra.IsReadOnly = true;
+                }
+                else
+                {
+                    celdaLetra.Completed += Entry_Completed;
+                    celdaLetra.Unfocused += Entry_Unfocused;
                 }
 
                 grbFilaNum.Children.Add(celdaNum);
@@ -281,6 +356,29 @@ public partial class MainPage : ContentPage
                 grbFilaLetra.IsVisible = true;
             }
         });
+    }
+
+    private bool yaEstoy = false;
+    private void Entry_Completed(object sender, EventArgs e)
+    {
+        if (yaEstoy) return;
+        yaEstoy = true;
+        
+        Entry vLetra = (Entry)sender;
+        string s = vLetra.Text.Trim();
+        // Cambiar las vocales con tilde y diéresis por vocales normales
+        if ("ÁÄÀ".IndexOf(s) > -1) s = "A";
+        if ("ÉËÈ".IndexOf(s) > -1) s = "E";
+        if ("ÍÏÌ".IndexOf(s) > -1) s = "I";
+        if ("ÓÖÒ".IndexOf(s) > -1) s = "O";
+        if ("ÚÜÙ".IndexOf(s) > -1) s = "U";
+        vLetra.Text = s;
+        
+        yaEstoy = false;
+    }
+    private void Entry_Unfocused(object sender, FocusEventArgs e)
+    {
+        Entry_Completed(sender, e);
     }
 
     private void StackLayout_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

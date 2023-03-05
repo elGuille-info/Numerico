@@ -99,6 +99,7 @@
                         <StackLayout>
                             <!-- Aquí se muestra el juego a resolver -->
                             <StackLayout x:Name="grbContenido" />
+                            <Entry Unfocused="Entry_Unfocused" />
                             <Label Margin="0,8" Padding="4" Text="Autor" 
                                    FontSize="Small" FontAttributes="Bold" 
                                    HorizontalTextAlignment="Start"/>
