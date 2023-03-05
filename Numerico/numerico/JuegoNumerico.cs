@@ -106,17 +106,17 @@ public class JuegoNumerico
             if (s.TrimStart().StartsWith('#')) continue;
             if (string.IsNullOrEmpty(autor))
             {
-                autor = s;
+                autor = QuitarTildes(s.ToUpper());
                 continue;
             }
             if (string.IsNullOrEmpty(titulo))
             {
-                titulo = s;
+                titulo = QuitarTildes(s.ToUpper());
                 continue;
             }
             if (string.IsNullOrEmpty(contenido))
             {
-                contenido = s;
+                contenido = QuitarTildes(s.ToUpper());
                 continue;
             }
             if (string.IsNullOrEmpty(orden_letras))
@@ -126,6 +126,11 @@ public class JuegoNumerico
             }
         }
         return CrearNumerico(autor, titulo, contenido, orden_letras, numJuego);
+    }
+
+    private static string QuitarTildes(string texto)
+    {
+        return texto.Replace("Á", "A", StringComparison.OrdinalIgnoreCase).Replace("É", "E", StringComparison.OrdinalIgnoreCase).Replace("Í", "I", StringComparison.OrdinalIgnoreCase).Replace("Ó", "O", StringComparison.OrdinalIgnoreCase).Replace("Ú", "U", StringComparison.OrdinalIgnoreCase).Replace("Ü", "U", StringComparison.OrdinalIgnoreCase);
     }
 
     public class DatosNumerico
