@@ -128,8 +128,8 @@ public partial class MainPage : ContentPage
     /// </summary>
     private async void MostrarJuegoNumerico()
     {
-        //LabelExpander_Tapped(null, null);
-        //LabelExpander2_Tapped(null, null);
+        LabelExpander_Tapped(null, null);
+        LabelExpander2_Tapped(null, null);
 
         if (NumericoHelpers.ElJuego == null)
         {
