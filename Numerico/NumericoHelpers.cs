@@ -154,7 +154,7 @@ public static class NumericoHelpers
         int totalColumnas = 20;
         if (DeviceInfo.Idiom == DeviceIdiom.Phone)
         {
-            totalColumnas = 8;
+            totalColumnas = 9;
             anchoNum = 40;
         }
         else if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
