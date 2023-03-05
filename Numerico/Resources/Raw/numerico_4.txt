@@ -1,0 +1,12 @@
+﻿# Formato: cada campo en una línea.
+# Las líneas que empiezan con almoadilla (#) no se tienen en cuenta.
+# Los datos que se tendrán en cuenta son (en este orden): Autor, Título, Contenido y Orden-Letras
+# Tomado de Cábala Literaria número 2174, página 28
+# Autor
+Vernor Vinge
+# Título
+Al final del arco iris
+# Contenido
+La prueba del arma fue una obra maestra del ocultamiento. Fuimos afortunados al detectarla. Fue fruto de la paciencia, algo muy profesional, solo al alcance de una gran potencia. Las grandes potencias poseen su propia inercia y su cautela burocrática. Las pruebas de campo deben realizarse en el exterior.
+# Orden-Letras
+ZXIUPHEBJRALCSTKVDFWÑNQGYOM

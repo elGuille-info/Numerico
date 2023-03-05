@@ -23,7 +23,7 @@ public class JuegoNumerico
     /// <summary>
     /// Los juegos numéricos ya definidos.
     /// </summary>
-    public static List<int> JuegosNumericos { get; set; } = new List<int>() { 1, 2, 3 };
+    public static List<int> JuegosNumericos { get; set; } = new List<int>() { 1, 2, 3, 4 };
 
     public static int NumJuegoMin { get; set; } = 1;
     public static int NumJuegoMax { get; set; } = 1;
