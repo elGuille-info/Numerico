@@ -1,0 +1,12 @@
+﻿# Formato: cada campo en una línea.
+# Las líneas que empiezan con almoadilla (#) no se tienen en cuenta.
+# Los datos que se tendrán en cuenta son (en este orden): Autor, Título, Contenido y Orden-Letras
+# Tomado de Cábala Literaria número 2174, página 4
+# Autor
+Maurice Leblanc
+# Título
+El tapón de cristal
+# Contenido
+El enemigo no hizo ningún movimiento y, cuando tuvo lugar el abordaje y los dos hombres, soltando los remos, se prepararon para el temible asalto, el comisario comprendió el motivo: no había nadie en el bote. El enemigo había huido a nado, dejando en manos del vencedor cierto número de objetos robados.
+# Orden-Letras
+XPZFSYOKGÑNRBAQTUHVJDLMWCEI
