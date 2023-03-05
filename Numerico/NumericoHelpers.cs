@@ -159,8 +159,9 @@ public static class NumericoHelpers
         }
         else if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
         {
-            totalColumnas = 16;
-            anchoNum = 40;
+            totalColumnas = 22; // 16;
+            anchoNum = 35; // 40;
+            anchoEntry = 35;
         }
         else if (DeviceInfo.Idiom == DeviceIdiom.Desktop)
         {
