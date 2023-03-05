@@ -128,19 +128,24 @@ public partial class MainPage : ContentPage
         grbBotones.IsEnabled = false;
 
         // Comprobar
-        if (await ComprobarJuego())
+        int resueltos = await ComprobarJuego();
+        if (resueltos == 3)
         {
             LabelInfo.Text = "El juego está resuelto.";
         }
         else
         {
             LabelInfo.Text = "El juego NO está resuelto.";
+            if (resueltos > 0)
+            {
+                LabelInfo.Text += $" Has resuelto {resueltos} de 3.";
+            }
         }
         //LabelInfo.IsVisible = false;
         grbBotones.IsEnabled = true;
     }
 
-    private async Task<bool> ComprobarJuego()
+    private async Task<int> ComprobarJuego()
     {
         // Comprobar si se ha resuelto el pasatiempo numérico
         // En grbContenido estará el contenido del texto
@@ -160,10 +165,10 @@ public partial class MainPage : ContentPage
             if (ComprobarContenido(grbContenido, ElJuego.Contenido)) resueltos++;
         });
 
-        return resueltos == 3;
+        return resueltos;
     }
 
-    private bool ComprobarContenido(StackLayout grb, string texto)
+    private static bool ComprobarContenido(StackLayout grb, string texto)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -171,13 +176,17 @@ public partial class MainPage : ContentPage
 
         while (i < grb.Children.Count)
         {
-            // La fila de números contiene Label
-            //grbFilaNum = (StackLayout)grb.Children[i];
             // La fila de letras contiene Entry
             StackLayout grbFilaLetra = (StackLayout)grb.Children[i + 1];
-            foreach (Entry vLetra in grbFilaLetra)
+            //foreach (Entry vLetra in grbFilaLetra)
+            foreach (Entry vLetra in grbFilaLetra.Cast<Entry>())
             {
                 string s = vLetra.Text.Trim();
+                if (string.IsNullOrEmpty(s))
+                {
+                    sb.Append(' ');
+                    continue;
+                }
                 // Cambiar las vocales con tilde y diéresis por vocales normales
                 if ("ÁÄÀ".IndexOf(s) > -1) s = "A";
                 if ("ÉËÈ".IndexOf(s) > -1) s = "E";
@@ -325,6 +334,8 @@ public partial class MainPage : ContentPage
                     celdaLetra.Completed += Entry_Completed;
                     celdaLetra.Unfocused += Entry_Unfocused;
                 }
+                //celdaLetra.Completed += Entry_Completed;
+                //celdaLetra.Unfocused += Entry_Unfocused;
 
                 grbFilaNum.Children.Add(celdaNum);
                 grbFilaLetra.Children.Add(celdaLetra);
@@ -362,10 +373,13 @@ public partial class MainPage : ContentPage
     private void Entry_Completed(object sender, EventArgs e)
     {
         if (yaEstoy) return;
-        yaEstoy = true;
         
         Entry vLetra = (Entry)sender;
         string s = vLetra.Text.Trim();
+        if (string.IsNullOrEmpty(s)) { return; }
+
+        yaEstoy = true;
+
         // Cambiar las vocales con tilde y diéresis por vocales normales
         if ("ÁÄÀ".IndexOf(s) > -1) s = "A";
         if ("ÉËÈ".IndexOf(s) > -1) s = "E";
@@ -389,6 +403,5 @@ public partial class MainPage : ContentPage
             BtnSolucion.IsEnabled = grbBotones.IsEnabled;
         }
     }
-
 }
 
