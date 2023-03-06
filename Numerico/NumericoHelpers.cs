@@ -74,7 +74,7 @@ public static class NumericoHelpers
             foreach (Entry vLetra in grbFilaLetra.Cast<Entry>())
             {
                 //var s = texto[n].ToString().ToUpper();
-                string s = CambiarVocal(texto[n].ToString().ToUpper());
+                string s = JuegoNumerico.CambiarVocal(texto[n].ToString().ToUpper());
                 if (letra.ToUpper() == s) 
                 {
                     // solo las no asignadas
@@ -120,7 +120,7 @@ public static class NumericoHelpers
             foreach (Entry vLetra in grbFilaLetra.Cast<Entry>())
             {
                 //var s = texto[n].ToString().ToUpper();
-                string s = CambiarVocal(texto[n].ToString().ToUpper());
+                string s = JuegoNumerico.CambiarVocal(texto[n].ToString().ToUpper());
                 if (cual == s)
                 {
                     vLetra.ClassId = letra;
@@ -131,21 +131,6 @@ public static class NumericoHelpers
             i += 2;
         }
         return true;
-    }
-
-    /// <summary>
-    /// Comprobar si la letra indicada es una vocal con tilde (o diéresis) y si es así, cambiarla sin tilde.
-    /// </summary>
-    /// <param name="vocal"></param>
-    /// <returns></returns>
-    private static string CambiarVocal(string vocal)
-    {
-        int n = "ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ".IndexOf(vocal);
-        if ( n > -1)
-        {
-            return "AEIOUAEIOUAEIOU"[n].ToString();
-        }
-        return vocal;
     }
 
     /// <summary>
@@ -173,7 +158,7 @@ public static class NumericoHelpers
                     sb.Append(' ');
                     continue;
                 }
-                s = CambiarVocal(s);
+                s = JuegoNumerico.CambiarVocal(s);
                 // Cambiar las vocales con tilde y diéresis por vocales normales
                 //if ("ÁÄÀ".IndexOf(s) > -1) s = "A";
                 //if ("ÉËÈ".IndexOf(s) > -1) s = "E";
@@ -282,7 +267,7 @@ public static class NumericoHelpers
                 Orientation = StackOrientation.Horizontal
             };
             char elChar = ' ';
-            // el formato es nn o espacio char
+            // el formato es 'nn' o 'espacio char'
             while (true)
             {
                 n += 2;

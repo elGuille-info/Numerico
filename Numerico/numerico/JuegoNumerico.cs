@@ -67,13 +67,22 @@ public class JuegoNumerico
     {
         StringBuilder sb = new StringBuilder();
 
-        foreach (var c in original)
+        foreach (char c in original)
         {
             int i = ordenLetras.IndexOf(c, StringComparison.OrdinalIgnoreCase);
+            // Tener en cuenta las vocales con tilde            (06/mar/23 16.42)
             if (i == -1)
             {
-                sb.Append(' ');
-                sb.Append(c);
+                if (EsVocalConTilde(c))
+                {
+                    i = ordenLetras.IndexOf(CambiarVocal(c), StringComparison.OrdinalIgnoreCase);
+                    sb.Append(i.ToString("00"));
+                }
+                else
+                {
+                    sb.Append(' ');
+                    sb.Append(c);
+                }
             }
             else
             {
@@ -81,6 +90,47 @@ public class JuegoNumerico
             }
         }
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// Comprueba si el carácter indicado es una vocal con tilde o diéresis.
+    /// </summary>
+    /// <param name="vocal"></param>
+    /// <returns></returns>
+    public static bool EsVocalConTilde(char vocal)
+    {
+        return "ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ".IndexOf(vocal, StringComparison.OrdinalIgnoreCase) > -1;
+    }
+
+    /// <summary>
+    /// Si la letra indicada es una vocal con tilde (o diéresis) cambiarla sin tilde.
+    /// </summary>
+    /// <param name="vocal"></param>
+    /// <returns></returns>
+    public static string CambiarVocal(string vocal)
+    {
+        return CambiarVocal(vocal[0]).ToString();
+        //int n = "ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ".IndexOf(vocal, StringComparison.OrdinalIgnoreCase);
+        //if (n > -1)
+        //{
+        //    return "AEIOUAEIOUAEIOU"[n].ToString();
+        //}
+        //return vocal;
+    }
+
+    /// <summary>
+    /// Si la letra indicada es una vocal con tilde (o diéresis) cambiarla sin tilde.
+    /// </summary>
+    /// <param name="vocal"></param>
+    /// <returns></returns>
+    public static char CambiarVocal(char vocal)
+    {
+        int n = "ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ".IndexOf(vocal, StringComparison.OrdinalIgnoreCase);
+        if (n > -1)
+        {
+            return "AEIOUAEIOUAEIOU"[n];
+        }
+        return vocal;
     }
 
     /// <summary>
