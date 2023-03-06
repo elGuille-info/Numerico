@@ -303,11 +303,12 @@ public static class NumericoHelpers
                 //Entry celdaNum = new Entry
                 {
                     FontFamily = "Consolas",
+                    HorizontalTextAlignment = TextAlignment.Center,
                     WidthRequest = anchoNum, // anchoEntry + 4,
                     HeightRequest = altoNum,
                     Text = elNum,
                     IsVisible = true,
-                    BackgroundColor = Colors.WhiteSmoke
+                    BackgroundColor = Colors.WhiteSmoke, 
                 };
                 // Para la fila del texto, usar Entry para poder escribir
                 Entry celdaLetra = new Entry

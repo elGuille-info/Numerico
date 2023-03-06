@@ -119,12 +119,12 @@
                         <StackLayout x:Name="grbBotones" Orientation="Horizontal" 
                                      Margin="4,8,4,4" Spacing="12">
                             <Button x:Name="BtnSolucion" Text="Mostrar solución" 
-                                    Clicked="BtnSolucion_Clicked" />
+                                    Clicked="BtnSolucion_Clicked" Margin="0,0,0,8" />
                             <Button x:Name="BtnComprobar" Text="Comprobar" 
-                                    Clicked="BtnComprobar_Clicked"/>
+                                    Clicked="BtnComprobar_Clicked" Margin="0,0,0,8" />
                             <StackLayout>
                                 <StackLayout Orientation="Horizontal">
-                                    <StackLayout Orientation="Horizontal" Margin="12,8,4,8">
+                                    <StackLayout Orientation="Horizontal" Margin="4,8">
                                         <Label x:Name="LabelNumeroHint" Text="Núm: " />
                                         <Entry x:Name="txtNumeroHint" Text="1" Focused="Entry_Focused" />
                                     </StackLayout>
