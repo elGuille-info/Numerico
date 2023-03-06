@@ -80,15 +80,15 @@
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
                 <StackLayout x:Name="grbExpanderNumJuego" Margin="4,8,4,4">
-                    <Label Text="Selecciona un juego y pulsa en el botón Generar numérico"/>
+                    <Label Text="Indica un número y pulsa en el botón 'Mostrar numérico'"/>
                     <StackLayout Orientation="Horizontal" Margin="0,8" Spacing="12"
                                  HorizontalOptions="Fill" VerticalOptions="Center">
                         <Label Text="Número de juego: " />
                         <Entry x:Name="txtNumJuego" Text="1" Focused="Entry_Focused" />
-                        <Button x:Name="BtnGenerar" 
-                                Text="Generar numérico"
+                        <Button x:Name="BtnMostrar" 
+                                Text="Mostrar numérico"
                                 Margin="8,4" HorizontalOptions="Center"
-                                Clicked="BtnGenerar_Clicked" />
+                                Clicked="BtnMostrar_Clicked" />
                     </StackLayout>
                     <Label x:Name="LabelNumero" Text="" Margin="0"/>
                 </StackLayout>

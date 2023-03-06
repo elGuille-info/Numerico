@@ -19,9 +19,12 @@ public partial class MainPage : ContentPage
     private void ContentPage_Appearing(object sender, EventArgs e)
     {
         LabelNumero.Text = $"Indica el número del juego, de {JuegoNumerico.NumJuegoMin} a {JuegoNumerico.NumJuegoMax} (ambos inclusive).";
+        HabilitarBotones(false);
     }
 
-    private void BtnGenerar_Clicked(object sender, EventArgs e)
+    private int numJuegoAnterior = 0;
+
+    private void BtnMostrar_Clicked(object sender, EventArgs e)
     {
         // por ahora solo hay un juego disponible
         int numJuego = 1;
@@ -39,12 +42,12 @@ public partial class MainPage : ContentPage
             LabelNumero.Text = $"Se utiliza el juego número {numJuego}.";
         }
 
-        LabelInfo.IsVisible = true;
+        //LabelInfo.IsVisible = true;
 
         NumericoHelpers.NumeroJuego = numJuego;
         MostrarJuegoNumerico();
 
-        LabelInfo.IsVisible = false;
+        //LabelInfo.IsVisible = false;
     }
 
     private void LabelExpanderNumJuego_Tapped(object sender, TappedEventArgs e)
@@ -89,9 +92,11 @@ public partial class MainPage : ContentPage
         //MostrarJuego(conSolucion: SolucionMostrada);
         NumericoHelpers.MostrarSolucion(grbAutor, grbTitulo, grbContenido, NumericoHelpers.SolucionMostrada);
 
+        LabelTitulo.Text = $"Pasatiempo numérico, juego actual: {NumericoHelpers.NumeroJuego}";
         if (NumericoHelpers.SolucionMostrada)
         {
             BtnSolucion.Text = "Ocultar solución";
+            LabelTitulo.Text += " (solución)";
         }
         else
         {
@@ -137,7 +142,7 @@ public partial class MainPage : ContentPage
         grbExpanderNumerico.IsVisible = false; // asignar como no visible para que se muestre
         LabelExpanderNumerico_Tapped(null, null);
 
-        if (NumericoHelpers.ElJuego == null)
+        if (numJuegoAnterior != NumericoHelpers.NumeroJuego || NumericoHelpers.ElJuego == null)
         {
             LabelInfo.Text = "Leyendo los datos del juego...";
             LabelInfo.IsVisible = true;
@@ -148,19 +153,33 @@ public partial class MainPage : ContentPage
             NumericoHelpers.ElJuego = await JuegoNumerico.LeerJuego(NumericoHelpers.NumeroJuego);
 
             LabelInfo.IsVisible = false;
+            //numJuegoAnterior = NumericoHelpers.NumeroJuego;
         }
+        //if (NumericoHelpers.ElJuego == null)
+        //{
+        //    LabelInfo.Text = "Leyendo los datos del juego...";
+        //    LabelInfo.IsVisible = true;
+        //    grbNumerico.IsVisible = false;
+        //    //grbBotones.IsEnabled = false;
+        //    HabilitarBotones(false);
+
+        //    NumericoHelpers.ElJuego = await JuegoNumerico.LeerJuego(NumericoHelpers.NumeroJuego);
+
+        //    LabelInfo.IsVisible = false;
+        //}
 
         // Asignar los datos sin mostrar la solución
         MostrarJuego(conSolucion: false);
+
+        numJuegoAnterior = NumericoHelpers.NumeroJuego;
     }
 
     /// <summary>
     /// Mostrar el juego creando los controles con las letras y los números
     /// </summary>
-    /// <param name="conSolucion">True si se debe mostrar la solución</param>
+    /// <param name="conSolucion">True si se debe mostrar la solución (siempre se debe llamar con false)</param>
     private async void MostrarJuego(bool conSolucion)
     {
-        //grbBotones.IsEnabled = false;
         HabilitarBotones(false);
 
         if (conSolucion)
@@ -171,6 +190,7 @@ public partial class MainPage : ContentPage
         {
             LabelInfo.Text = "Asignando los datos del juego...";
         }
+        //LabelInfo.Text = "Asignando los datos del juego...";
         LabelInfo.IsVisible = true;
 
         LabelTitulo.Text = $"Pasatiempo numérico, juego actual: {NumericoHelpers.NumeroJuego}";
@@ -180,19 +200,30 @@ public partial class MainPage : ContentPage
         }
         grbNumerico.IsVisible = false;
 
-        await Task.Run(async () =>
+        // Solo rellenarlo si es un juego diferente
+        // si no, simplemente mostrarlo sin la solución
+        if (numJuegoAnterior != NumericoHelpers.NumeroJuego)
         {
-            await Task.Run(() => NumericoHelpers.AsignarContenido(grbAutor, NumericoHelpers.ElJuego.Autor_N, conSolucion));
-            await Task.Run(() => NumericoHelpers.AsignarContenido(grbTitulo, NumericoHelpers.ElJuego.Titulo_N, conSolucion));
-            await Task.Run(() => NumericoHelpers.AsignarContenido(grbContenido, NumericoHelpers.ElJuego.Contenido_N, conSolucion));
-        });
+            await Task.Run(async () =>
+            {
+                await Task.Run(() => NumericoHelpers.AsignarContenido(grbAutor, NumericoHelpers.ElJuego.Autor_N, conSolucion));
+                await Task.Run(() => NumericoHelpers.AsignarContenido(grbTitulo, NumericoHelpers.ElJuego.Titulo_N, conSolucion));
+                await Task.Run(() => NumericoHelpers.AsignarContenido(grbContenido, NumericoHelpers.ElJuego.Contenido_N, conSolucion));
+            });
+        }
+        else
+        {
+            //NumericoHelpers.MostrarSolucion(grbAutor, grbTitulo, grbContenido, conSolucion);
+            // Asignar true para al llamar al evento clicked que se oculte
+            NumericoHelpers.SolucionMostrada = true;
+            BtnSolucion_Clicked(null, null);
+        }
 
         grbNumerico.IsVisible = true;
         LabelInfo.IsVisible = false;
-        //grbBotones.IsEnabled = true;
         HabilitarBotones(true);
 
-        NumericoHelpers.SolucionMostrada = conSolucion;
+        //NumericoHelpers.SolucionMostrada = conSolucion;
     }
 
     //private void StackLayout_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -206,13 +237,16 @@ public partial class MainPage : ContentPage
     private void HabilitarBotones(bool habilitar)
     {
         grbBotones.IsEnabled = habilitar;
-        BtnComprobar.IsEnabled = grbBotones.IsEnabled;
-        BtnSolucion.IsEnabled = grbBotones.IsEnabled;
-        BtnAsignarLetra.IsEnabled = grbBotones.IsEnabled;
-        LabelLetraHint.IsEnabled = grbBotones.IsEnabled;
-        txtLetraHint.IsEnabled = grbBotones.IsEnabled;
-        LabelCheckLetraHint.IsEnabled = grbBotones.IsEnabled;
-        chkLetraHint.IsEnabled = grbBotones.IsEnabled;
+        BtnComprobar.IsEnabled = habilitar;
+        BtnSolucion.IsEnabled = habilitar;
+        BtnAsignarLetra.IsEnabled = habilitar;
+        LabelLetraHint.IsEnabled = habilitar;
+        txtLetraHint.IsEnabled = habilitar;
+        LabelCheckLetraHint.IsEnabled = habilitar;
+        chkLetraHint.IsEnabled = habilitar;
+        LabelNumeroHint.IsEnabled = habilitar;
+        txtNumeroHint.IsEnabled = habilitar;
+        BtnCambiarNumeroLetra.IsEnabled = habilitar;
     }
 
     private void BtnAsignarLetra_Clicked(object sender, EventArgs e)
