@@ -119,7 +119,31 @@
                                     Clicked="BtnSolucion_Clicked" />
                             <Button x:Name="BtnComprobar" Text="Comprobar" 
                                     Clicked="BtnComprobar_Clicked"/>
-                            <StackLayout Orientation="Horizontal" Margin="12,8,4,8">
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal" Margin="12,8,4,8">
+                                        <Label x:Name="LabelNumeroHint" Text="Núm: " />
+                                        <Entry x:Name="txtNumeroHint" Text="1" Focused="Entry_Focused" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Margin="4,8">
+                                        <Label x:Name="LabelLetraHint" Text="Letra: " />
+                                        <Entry x:Name="txtLetraHint" Text="A" Focused="Entry_Focused" />
+                                    </StackLayout>
+                                    <Button x:Name="BtnCambiarNumeroLetra" Text="Cambiar núm x letra"
+                                            Margin="12,0,0,0" HorizontalOptions="Center"
+                                            Clicked="BtnCambiarNumeroLetra_Clicked" />
+                                    <Button x:Name="BtnAsignarLetra" Text="Mostrar letra"
+                                            Margin="12,0,0,0" HorizontalOptions="Center"
+                                            Clicked="BtnAsignarLetra_Clicked" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label x:Name="LabelCheckLetraHint" Text="Todas" HorizontalTextAlignment="Start"/>
+                                        <CheckBox x:Name="chkLetraHint" IsChecked="False" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <Label FontSize="13" Text="Indica el número y la letra a Cambiar o la letra a Mostrar." 
+                                       HorizontalTextAlignment="Start" Margin="0,4,0,8"/>
+                            </StackLayout>
+                            <!--<StackLayout Orientation="Horizontal" Margin="12,8,4,8">
                                 <Label x:Name="LabelNumeroHint" Text="Núm: " />
                                 <Entry x:Name="txtNumeroHint" Text="1" Focused="Entry_Focused" />
                             </StackLayout>
@@ -136,11 +160,11 @@
                             <StackLayout Orientation="Horizontal">
                                 <Label x:Name="LabelCheckLetraHint" Text="Todas" HorizontalTextAlignment="Start"/>
                                 <CheckBox x:Name="chkLetraHint" IsChecked="False" />
-                            </StackLayout>
+                            </StackLayout>-->
                         </StackLayout>
                     </ScrollView>
-                    <Label FontSize="13" Text="Indica el número y la letra a Cambiar o la letra a Mostrar." 
-                           HorizontalTextAlignment="Start" Margin="0,4,0,8"/>
+                    <!--<Label FontSize="13" Text="Indica el número y la letra a Cambiar o la letra a Mostrar." 
+                           HorizontalTextAlignment="Start" Margin="0,4,0,8"/>-->
                     <Frame x:Name="grbNumerico" Padding="4">
                         <StackLayout>
                             <!-- Aquí se muestra el juego a resolver -->
