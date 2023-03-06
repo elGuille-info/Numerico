@@ -219,5 +219,10 @@ public partial class MainPage : ContentPage
         NumericoHelpers.AsignarLetra(grbTitulo, NumericoHelpers.ElJuego.Titulo, txtLetraHint.Text, chkLetraHint.IsChecked);
         NumericoHelpers.AsignarLetra(grbContenido, NumericoHelpers.ElJuego.Contenido, txtLetraHint.Text, chkLetraHint.IsChecked);
     }
+
+    private void BtnCambiarNumeroLetra_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }
 

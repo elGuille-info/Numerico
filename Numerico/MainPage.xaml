@@ -112,26 +112,35 @@
                     </StackLayout>
                 </StackLayout>
                 <StackLayout x:Name="grbExpanderNumerico" IsVisible="False">
-                    <ScrollView Orientation="Horizontal" Margin="0,4,0,8">
+                    <ScrollView Orientation="Horizontal" Margin="0,4">
                         <StackLayout x:Name="grbBotones" Orientation="Horizontal" 
                                      Margin="4,8,4,4" Spacing="12">
                             <Button x:Name="BtnSolucion" Text="Mostrar solución" 
                                     Clicked="BtnSolucion_Clicked" />
                             <Button x:Name="BtnComprobar" Text="Comprobar" 
                                     Clicked="BtnComprobar_Clicked"/>
-                            <StackLayout Orientation="Horizontal" Margin="12,8">
+                            <StackLayout Orientation="Horizontal" Margin="12,8,4,8">
+                                <Label x:Name="LabelNumeroHint" Text="Núm: " />
+                                <Entry x:Name="txtNumeroHint" Text="1" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Margin="4,8">
                                 <Label x:Name="LabelLetraHint" Text="Letra: " />
                                 <Entry x:Name="txtLetraHint" Text="A" />
-                                <StackLayout Orientation="Horizontal">
-                                    <Label x:Name="LabelCheckLetraHint" Text="Todas"/>
-                                    <CheckBox x:Name="chkLetraHint" IsChecked="False" />
-                                </StackLayout>
                             </StackLayout>
-                            <Button x:Name="BtnAsignarLetra" Text="Asignar"
-                                    Margin="12,0" HorizontalOptions="Center"
+                            <Button x:Name="BtnCambiarNumeroLetra" Text="Cambiar núm x letra"
+                                    Margin="12,0,0,0" HorizontalOptions="Center"
+                                    Clicked="BtnCambiarNumeroLetra_Clicked" />
+                            <Button x:Name="BtnAsignarLetra" Text="Mostrar letra"
+                                    Margin="12,0,0,0" HorizontalOptions="Center"
                                     Clicked="BtnAsignarLetra_Clicked" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label x:Name="LabelCheckLetraHint" Text="Todas" HorizontalTextAlignment="Start"/>
+                                <CheckBox x:Name="chkLetraHint" IsChecked="False" />
+                            </StackLayout>
                         </StackLayout>
                     </ScrollView>
+                    <Label FontSize="13" Text="Indica el número y la letra a Cambiar o la letra a Mostrar." 
+                           HorizontalTextAlignment="Start" Margin="0,4,0,8"/>
                     <Frame x:Name="grbNumerico" Padding="4">
                         <StackLayout>
                             <!-- Aquí se muestra el juego a resolver -->
