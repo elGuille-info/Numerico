@@ -73,7 +73,8 @@ public static class NumericoHelpers
             //foreach (Entry vLetra in grbFilaLetra)
             foreach (Entry vLetra in grbFilaLetra.Cast<Entry>())
             {
-                var s = texto[n].ToString().ToUpper();
+                //var s = texto[n].ToString().ToUpper();
+                string s = CambiarVocal(texto[n].ToString().ToUpper());
                 if (letra.ToUpper() == s) 
                 {
                     // solo las no asignadas
@@ -89,6 +90,53 @@ public static class NumericoHelpers
             }
             i += 2;
         }
+    }
+
+    public static bool CambiarNumeroLetra(StackLayout grb, string texto, string letras, int numero, string letra)
+    {
+        // Tomar de OrdenLetras la letra con el índice indicado en numero
+        // y asignar todas las que tengan ese número con la letra indicada
+        numero -= 1;
+        // Si el número no está en rango, nada que hacer
+        if (numero < 0 || numero >= letras.Length) return false;
+        var cual = letras[numero].ToString();
+        int i = 0;
+        int n = 0;
+
+        while (i < grb.Children.Count)
+        {
+            // La fila de letras contiene Entry
+            StackLayout grbFilaLetra = (StackLayout)grb.Children[i + 1];
+            //foreach (Entry vLetra in grbFilaLetra)
+            foreach (Entry vLetra in grbFilaLetra.Cast<Entry>())
+            {
+                //var s = texto[n].ToString().ToUpper();
+                string s = CambiarVocal(texto[n].ToString().ToUpper());
+                if (cual == s)
+                {
+                    vLetra.ClassId = letra;
+                    vLetra.Text = letra;
+                }
+                n++;
+            }
+            i += 2;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Comprobar si la letra indicada es una vocal con tilde (o diéresis) y si es así, cambiarla sin tilde.
+    /// </summary>
+    /// <param name="vocal"></param>
+    /// <returns></returns>
+    private static string CambiarVocal(string vocal)
+    {
+        int n = "ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜ".IndexOf(vocal);
+        if ( n > -1)
+        {
+            return "AEIOUAEIOUAEIOU"[n].ToString();
+        }
+        return vocal;
     }
 
     /// <summary>
@@ -116,12 +164,13 @@ public static class NumericoHelpers
                     sb.Append(' ');
                     continue;
                 }
+                s = CambiarVocal(s);
                 // Cambiar las vocales con tilde y diéresis por vocales normales
-                if ("ÁÄÀ".IndexOf(s) > -1) s = "A";
-                if ("ÉËÈ".IndexOf(s) > -1) s = "E";
-                if ("ÍÏÌ".IndexOf(s) > -1) s = "I";
-                if ("ÓÖÒ".IndexOf(s) > -1) s = "O";
-                if ("ÚÜÙ".IndexOf(s) > -1) s = "U";
+                //if ("ÁÄÀ".IndexOf(s) > -1) s = "A";
+                //if ("ÉËÈ".IndexOf(s) > -1) s = "E";
+                //if ("ÍÏÌ".IndexOf(s) > -1) s = "I";
+                //if ("ÓÖÒ".IndexOf(s) > -1) s = "O";
+                //if ("ÚÜÙ".IndexOf(s) > -1) s = "U";
                 sb.Append(s);
             }
             i += 2;

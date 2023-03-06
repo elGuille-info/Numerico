@@ -106,17 +106,20 @@ public class JuegoNumerico
             if (s.TrimStart().StartsWith('#')) continue;
             if (string.IsNullOrEmpty(autor))
             {
-                autor = QuitarTildes(s.ToUpper());
+                //autor = QuitarTildes(s.ToUpper());
+                autor = s;
                 continue;
             }
             if (string.IsNullOrEmpty(titulo))
             {
-                titulo = QuitarTildes(s.ToUpper());
+                //titulo = QuitarTildes(s.ToUpper());
+                titulo = s;
                 continue;
             }
             if (string.IsNullOrEmpty(contenido))
             {
-                contenido = QuitarTildes(s.ToUpper());
+                //contenido = QuitarTildes(s.ToUpper());
+                contenido = s;
                 continue;
             }
             if (string.IsNullOrEmpty(orden_letras))
@@ -128,20 +131,20 @@ public class JuegoNumerico
         return CrearNumerico(autor, titulo, contenido, orden_letras, numJuego);
     }
 
-    /// <summary>
-    /// Cambiar las vocales con tilde y la u con diéresis por vocales normales.
-    /// </summary>
-    /// <param name="texto">El texto a comprobar</param>
-    /// <returns>El nuevo texto con los cambios hechos</returns>
-    private static string QuitarTildes(string texto)
-    {
-        return texto.Replace("Á", "A", StringComparison.OrdinalIgnoreCase).
-                     Replace("É", "E", StringComparison.OrdinalIgnoreCase).
-                     Replace("Í", "I", StringComparison.OrdinalIgnoreCase).
-                     Replace("Ó", "O", StringComparison.OrdinalIgnoreCase).
-                     Replace("Ú", "U", StringComparison.OrdinalIgnoreCase).
-                     Replace("Ü", "U", StringComparison.OrdinalIgnoreCase);
-    }
+    ///// <summary>
+    ///// Cambiar las vocales con tilde y la u con diéresis por vocales normales.
+    ///// </summary>
+    ///// <param name="texto">El texto a comprobar</param>
+    ///// <returns>El nuevo texto con los cambios hechos</returns>
+    //private static string QuitarTildes(string texto)
+    //{
+    //    return texto.Replace("Á", "A", StringComparison.OrdinalIgnoreCase).
+    //                 Replace("É", "E", StringComparison.OrdinalIgnoreCase).
+    //                 Replace("Í", "I", StringComparison.OrdinalIgnoreCase).
+    //                 Replace("Ó", "O", StringComparison.OrdinalIgnoreCase).
+    //                 Replace("Ú", "U", StringComparison.OrdinalIgnoreCase).
+    //                 Replace("Ü", "U", StringComparison.OrdinalIgnoreCase);
+    //}
 
     public class DatosNumerico
     {
