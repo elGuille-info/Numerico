@@ -222,7 +222,23 @@ public partial class MainPage : ContentPage
 
     private void BtnCambiarNumeroLetra_Clicked(object sender, EventArgs e)
     {
+        // Cambiar las letras con el número indicado por la letra indicada
+        int n = 0;
+        _ = int.TryParse(txtNumeroHint.Text, out n);
 
+        NumericoHelpers.CambiarNumeroLetra(grbAutor, NumericoHelpers.ElJuego.Autor, NumericoHelpers.ElJuego.OrdenLetras, n, txtLetraHint.Text);
+        NumericoHelpers.CambiarNumeroLetra(grbTitulo, NumericoHelpers.ElJuego.Titulo, NumericoHelpers.ElJuego.OrdenLetras, n, txtLetraHint.Text);
+        NumericoHelpers.CambiarNumeroLetra(grbContenido, NumericoHelpers.ElJuego.Contenido, NumericoHelpers.ElJuego.OrdenLetras, n, txtLetraHint.Text);
     }
+
+    private static void Entry_Focused(object sender, FocusEventArgs e)
+    {
+        Entry vLetra = (Entry)sender;
+        if (vLetra == null) return;
+        if (string.IsNullOrEmpty(vLetra.Text)) return;
+        vLetra.CursorPosition = 0;
+        vLetra.SelectionLength = vLetra.Text.Length;
+    }
+
 }
 

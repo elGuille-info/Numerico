@@ -92,6 +92,15 @@ public static class NumericoHelpers
         }
     }
 
+    /// <summary>
+    /// Cambiar las letras con el número indicado por la letra indicada.
+    /// </summary>
+    /// <param name="grb">La sección a comprobar</param>
+    /// <param name="texto">El texto correcto de la sección</param>
+    /// <param name="letras">Las letras en el orden de los números mostrados</param>
+    /// <param name="numero">El número a cambiar</param>
+    /// <param name="letra">La letra a poner en las que estén en ese número</param>
+    /// <returns></returns>
     public static bool CambiarNumeroLetra(StackLayout grb, string texto, string letras, int numero, string letra)
     {
         // Tomar de OrdenLetras la letra con el índice indicado en numero
@@ -334,6 +343,7 @@ public static class NumericoHelpers
                 {
                     celdaLetra.Completed += Entry_Completed;
                     celdaLetra.Unfocused += Entry_Unfocused;
+                    celdaLetra.Focused += Entry_Focused;
                 }
                 else
                 {
@@ -407,5 +417,14 @@ public static class NumericoHelpers
     private static void Entry_Unfocused(object sender, FocusEventArgs e)
     {
         Entry_Completed(sender, e);
+    }
+    private static void Entry_Focused(object sender, FocusEventArgs e)
+    {
+        Entry vLetra = (Entry)sender;
+        if (vLetra == null) return;
+        if (string.IsNullOrEmpty(vLetra.Text)) return;
+        vLetra.CursorPosition = 0;
+        //vLetra.SelectionLength = 1;
+        vLetra.SelectionLength = vLetra.Text.Length;
     }
 }

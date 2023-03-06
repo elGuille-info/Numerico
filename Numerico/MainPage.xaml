@@ -83,7 +83,7 @@
                                  VerticalOptions="Center"
                                  Spacing="12">
                         <Label Text="Número de juego: " />
-                        <Entry x:Name="txtNumJuego" Text="1" />
+                        <Entry x:Name="txtNumJuego" Text="1" Focused="Entry_Focused" />
                         <Button x:Name="BtnGenerar" 
                                 Text="{OnIdiom Phone='Generar numérico', Default='Generar pasatiempo numérico'}"
                                 Margin="12,8" HorizontalOptions="Center"
@@ -121,11 +121,11 @@
                                     Clicked="BtnComprobar_Clicked"/>
                             <StackLayout Orientation="Horizontal" Margin="12,8,4,8">
                                 <Label x:Name="LabelNumeroHint" Text="Núm: " />
-                                <Entry x:Name="txtNumeroHint" Text="1" />
+                                <Entry x:Name="txtNumeroHint" Text="1" Focused="Entry_Focused" />
                             </StackLayout>
                             <StackLayout Orientation="Horizontal" Margin="4,8">
                                 <Label x:Name="LabelLetraHint" Text="Letra: " />
-                                <Entry x:Name="txtLetraHint" Text="A" />
+                                <Entry x:Name="txtLetraHint" Text="A" Focused="Entry_Focused" />
                             </StackLayout>
                             <Button x:Name="BtnCambiarNumeroLetra" Text="Cambiar núm x letra"
                                     Margin="12,0,0,0" HorizontalOptions="Center"
