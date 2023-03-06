@@ -114,8 +114,7 @@
                 <StackLayout x:Name="grbExpanderNumerico" IsVisible="False">
                     <ScrollView Orientation="Horizontal" Margin="0,4,0,8">
                         <StackLayout x:Name="grbBotones" Orientation="Horizontal" 
-                                     Margin="4,8,4,4" Spacing="12"
-                                     PropertyChanged="StackLayout_PropertyChanged">
+                                     Margin="4,8,4,4" Spacing="12">
                             <Button x:Name="BtnSolucion" Text="Mostrar solución" 
                                     Clicked="BtnSolucion_Clicked" />
                             <Button x:Name="BtnComprobar" Text="Comprobar" 
@@ -127,10 +126,10 @@
                                     <Label x:Name="LabelCheckLetraHint" Text="Todas"/>
                                     <CheckBox x:Name="chkLetraHint" IsChecked="False" />
                                 </StackLayout>
-                                <Button x:Name="BtnAsignarLetra" Text="Asignar"
-                                        Margin="12,0" HorizontalOptions="Center"
-                                        Clicked="BtnAsignarLetra_Clicked" />
                             </StackLayout>
+                            <Button x:Name="BtnAsignarLetra" Text="Asignar"
+                                    Margin="12,0" HorizontalOptions="Center"
+                                    Clicked="BtnAsignarLetra_Clicked" />
                         </StackLayout>
                     </ScrollView>
                     <Frame x:Name="grbNumerico" Padding="4">

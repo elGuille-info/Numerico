@@ -1,0 +1,13 @@
+﻿# Numérico 5, 06-mar-2023 15.04
+# Formato: cada campo en una línea.
+# Las líneas que empiezan con almoadilla (#) no se tienen en cuenta.
+# Los datos que se tendrán en cuenta son (en este orden): Autor, Título, Contenido y Orden-Letras
+# Tomado de Cábala número 2174, Damero página 9 y añadido segun el PDF de https://bnjm.cu/img/noticias/2021/5/18/Marguerite%20Yourcenar%20-%20Memorias%20%20de%20Adriano.pdf
+# Autor
+Mariguerite Yourcenar
+# Título
+Memorias de Adriano
+# Contenido
+Tuvo una vejez tranquila de rico caballero romano, gozando de la influencia que le daba su conocimiento de las familias y los negocios; muchas veces fui su huésped en los montes de Alba. No importa: tal como Alejandro en la víspera de una batalla yo había sacrificado al Miedo antes de mi entrada a Roma. Suelo contar a Atiano entre mis víctimas humanas.
+# Orden-Letras
+LXACERNIJOSUTKQWPVÑGYMBDFHZ

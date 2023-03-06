@@ -104,7 +104,8 @@ public partial class MainPage : ContentPage
         // Comprobar si se ha resuelto el pasatiempo numérico
         LabelInfo.Text = "Comprobando si está resuelto el pasatiempo numérico...";
         LabelInfo.IsVisible = true;
-        grbBotones.IsEnabled = false;
+        //grbBotones.IsEnabled = false;
+        HabilitarBotones(false);
 
         // Comprobar
         int resueltos = await NumericoHelpers.ComprobarJuego(grbAutor, grbTitulo, grbContenido);
@@ -120,7 +121,8 @@ public partial class MainPage : ContentPage
                 LabelInfo.Text += $" Has resuelto {resueltos} de las 3 partes.";
             }
         }
-        grbBotones.IsEnabled = true;
+        //grbBotones.IsEnabled = true;
+        HabilitarBotones(true);
     }
 
     /// <summary>
@@ -136,7 +138,8 @@ public partial class MainPage : ContentPage
             LabelInfo.Text = "Leyendo los datos del juego...";
             LabelInfo.IsVisible = true;
             grbNumerico.IsVisible = false;
-            grbBotones.IsEnabled = false;
+            //grbBotones.IsEnabled = false;
+            HabilitarBotones(false);
 
             NumericoHelpers.ElJuego = await JuegoNumerico.LeerJuego(NumericoHelpers.NumeroJuego);
 
@@ -153,7 +156,8 @@ public partial class MainPage : ContentPage
     /// <param name="conSolucion">True si se debe mostrar la solución</param>
     private async void MostrarJuego(bool conSolucion)
     {
-        grbBotones.IsEnabled = false;
+        //grbBotones.IsEnabled = false;
+        HabilitarBotones(false);
 
         if (conSolucion)
         {
@@ -181,23 +185,30 @@ public partial class MainPage : ContentPage
 
         grbNumerico.IsVisible = true;
         LabelInfo.IsVisible = false;
-        grbBotones.IsEnabled = true;
+        //grbBotones.IsEnabled = true;
+        HabilitarBotones(true);
 
         NumericoHelpers.SolucionMostrada = conSolucion;
     }
 
-    private void StackLayout_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    //private void StackLayout_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    //{
+    //    if (e.PropertyName == "IsEnabled")
+    //    {
+    //        HabilitarBotones(grbBotones.IsEnabled);
+    //    }
+    //}
+
+    private void HabilitarBotones(bool habilitar)
     {
-        if (e.PropertyName == "IsEnabled")
-        {
-            BtnComprobar.IsEnabled = grbBotones.IsEnabled;
-            BtnSolucion.IsEnabled = grbBotones.IsEnabled;
-            BtnAsignarLetra.IsEnabled = grbBotones.IsEnabled;
-            LabelLetraHint.IsEnabled = grbBotones.IsEnabled;
-            txtLetraHint.IsEnabled = grbBotones.IsEnabled;
-            LabelCheckLetraHint.IsEnabled = grbBotones.IsEnabled;
-            chkLetraHint.IsEnabled = grbBotones.IsEnabled;
-        }
+        grbBotones.IsEnabled = habilitar;
+        BtnComprobar.IsEnabled = grbBotones.IsEnabled;
+        BtnSolucion.IsEnabled = grbBotones.IsEnabled;
+        BtnAsignarLetra.IsEnabled = grbBotones.IsEnabled;
+        LabelLetraHint.IsEnabled = grbBotones.IsEnabled;
+        txtLetraHint.IsEnabled = grbBotones.IsEnabled;
+        LabelCheckLetraHint.IsEnabled = grbBotones.IsEnabled;
+        chkLetraHint.IsEnabled = grbBotones.IsEnabled;
     }
 
     private void BtnAsignarLetra_Clicked(object sender, EventArgs e)

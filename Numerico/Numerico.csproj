@@ -31,14 +31,18 @@
 		<Title>Pasatiempo Numérico</Title>
 		<Authors>Guillermo Som</Authors>
 		<Company>ElGuille</Company>
-		<Description>Pasatiempo numérico para .NET MAUI, revisión del 05-mar-2023</Description>
+		<Description>Pasatiempo numérico para .NET MAUI, revisión del 06-mar-2023</Description>
 		<Copyright>(c) Guillermo Som (Guille), 2023</Copyright>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>pasatiempos</PackageTags>
+		<PackageTags>pasatiempos; numérico</PackageTags>
 		<RepositoryUrl>https://github.com/elGuille-info/Numerico</RepositoryUrl>
-		<PackageReleaseNotes>Revisión del 05-mar-2023</PackageReleaseNotes>
+		<PackageReleaseNotes>
+v1.0.2 Revisión del 06-mar-2023        
+v1.0.1 Revisión del 05-mar-2023</PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<NeutralLanguage>es</NeutralLanguage>
+		<FileVersion>1.0.2.0</FileVersion>
+		<AssemblyVersion>1.0.2.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net7.0-ios'">
