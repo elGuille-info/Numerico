@@ -47,15 +47,15 @@ public partial class MainPage : ContentPage
         LabelInfo.IsVisible = false;
     }
 
-    private void LabelExpander_Tapped(object sender, TappedEventArgs e)
+    private void LabelExpanderNumJuego_Tapped(object sender, TappedEventArgs e)
     {
-        grbExpander.IsVisible = !grbExpander.IsVisible;
-        MostrarImagenExpander(ImgExpander, grbExpander.IsVisible);
+        grbExpanderNumJuego.IsVisible = !grbExpanderNumJuego.IsVisible;
+        MostrarImagenExpander(ImgExpanderNumJuego, grbExpanderNumJuego.IsVisible);
     }
-    private void LabelExpander2_Tapped(object sender, TappedEventArgs e)
+    private void LabelExpanderNumerico_Tapped(object sender, TappedEventArgs e)
     {
         grbExpanderNumerico.IsVisible = !grbExpanderNumerico.IsVisible;
-        MostrarImagenExpander(ImgExpander2, grbExpanderNumerico.IsVisible);
+        MostrarImagenExpander(ImgExpanderNumerico, grbExpanderNumerico.IsVisible);
     }
 
     /// <summary>
@@ -130,8 +130,12 @@ public partial class MainPage : ContentPage
     /// </summary>
     private async void MostrarJuegoNumerico()
     {
-        LabelExpander_Tapped(null, null);
-        LabelExpander2_Tapped(null, null);
+        // Cambiar mostrar/ocultar de los expanders
+        // En realidad hay que ocultar del selector del número y mostrar el del juego
+        grbExpanderNumJuego.IsVisible = true; // asignar como visible para que se oculte
+        LabelExpanderNumJuego_Tapped(null, null);
+        grbExpanderNumerico.IsVisible = false; // asignar como no visible para que se muestre
+        LabelExpanderNumerico_Tapped(null, null);
 
         if (NumericoHelpers.ElJuego == null)
         {
